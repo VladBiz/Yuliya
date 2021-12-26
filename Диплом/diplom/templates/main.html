@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang = "eng">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} sd {% endblock %}</title>
+    
+    
+    
+    
+</head>
+    
+<body>
+        
+    {% block content %}{% endblock %}
+        
+<!--    <form action="" method="post">{% csrf_token %}-->
+        
+    <label for="your_name">Your name: </label>
+    <input id="your_name" type="text" name="username" value="{{ username }}">
+        
+    <br>
+    <br>
+        
+    <label for="your_passowrd">Your password: </label>
+    <input id="your_password" type="text" name="password" value="{{ password }}">
+        
+    <br>
+    <br>
+        
+    <label for="your_email">Your email: </label>
+    <input id="your_email" type="text" name="email" value="{{ email }}">
+        
+    <br>
+    <br>
+        
+    <label for="is_farmer">Are you a farmer?: </label>
+    <input id="is_farmer" type="checkbox" name="is_farmer" >
+
+
+    <div id = "farmer" style = "display:none;">
+    </div>
+
+    <div id = "client" style = "display: block;">
+        <br>
+        <label for = "addres">Your addres:</label>
+        <input id = "addres" type = "text" name = "addres">
+    </div>
+        
+    <br>
+    <br>
+        
+    <label for="phone_number">Your phone number: </label>
+    <input id="phone_number" type="text" name="phone" value="{{ phone }}">
+    
+    <br>
+    <br>
+    
+    <button id="button">Тык!</button>
+<!--    <input type="submit" value="OK">-->
+
+
+<!--</form>-->
+
+    <script>
+
+        document.getElementById("is_farmer").onclick = function () {
+
+        farmer = document.getElementById("farmer")
+        client = document.getElementById("client")
+        var chk = document.getElementById("is_farmer")
+
+        if (chk.checked) {
+            document.getElementById("farmer").style.display = "block"
+            document.getElementById("client").style.display = "none"
+        }
+        else {
+            document.getElementById("client").style.display = "block"
+            document.getElementById("farmer").style.display = "none"
+        }
+        }
+       
+        document.getElementById("button").onclick = function (){
+        var username1 = document.getElementById("your_name").value;
+        var password1 = document.getElementById("your_password").value;
+        var email1 = document.getElementById("your_email").value;
+        var is_farmer1 = document.getElementById("is_farmer").checked;
+        var phone_number1 = document.getElementById("phone_number").value;
+        var addres1 = document.getElementById("addres").value;
+        
+        var j = {
+            "username":username1,
+            "email":email1,
+            "password":password1,
+            "is_farmer":is_farmer1,
+            "phone_number":phone_number1,
+            "addres":addres1
+        }
+
+        var requestURL = 'http://127.0.0.1:8000/';
+        var request = new XMLHttpRequest();
+        request.open('POST', requestURL);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.send(JSON.stringify(j))
+                     }
+    </script>
+    
+    
+</body>
+
+</html> 
